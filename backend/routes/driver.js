@@ -88,4 +88,10 @@ router.post('/login',[
         res.status(500).send("Internal Server Error Occurred");
     }  
 })
+
+router.get("/getdrivers", async(req,res) => {
+    let drivers = await Driver.find({});
+    res.json({drivers})
+})
+
 module.exports = router

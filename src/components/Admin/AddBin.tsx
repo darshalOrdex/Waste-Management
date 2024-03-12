@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BinDetails } from '../../interfaces/BinDetails';
+import axios from 'axios';
 
 const AddBin: React.FC = () => {
     const [binDetails, setBinDetails] = useState<BinDetails>({
@@ -34,9 +35,12 @@ const AddBin: React.FC = () => {
     const handleItemClick = (value: string) => {
         setBinDetails({ ...binDetails, loadtype: value });
     };
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(binDetails);
+        await axios.post("http://localhost:5000/bin/addbin",binDetails)
+        .then(response => console.log(response))
+        .catch(err => console.log(err))
         setBinDetails({
             name: "",
             locality: "",
