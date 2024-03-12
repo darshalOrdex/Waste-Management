@@ -3,9 +3,33 @@ import bin from "../../assets/images/recycle-grabage-bin.jpg";
 import driver from "../../assets/images/Truck-driver.jpg";
 import complaint from '../../assets/images/complaint-6.jpg';
 import user from '../../assets/images/png-transparent-user.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const AdminHome: React.FC = () => {
+    const navigate = useNavigate();
+    const axiosConfig = {
+        headers: {
+          'authtoken': localStorage.getItem("authtoken")
+        }
+    };
+    const verifyAdmin = async() => {
+        await axios.get("http://localhost:5000/verify/verifyapi",axiosConfig)
+        .then(response => {
+            if(response.data !== "Admin")
+            {
+                localStorage.removeItem('authtoken');
+                navigate("/")
+            }
+        })
+        .catch(err => {
+            localStorage.removeItem('authtoken');
+            navigate("/")
+        })
+    }
+    useEffect(() => {
+        verifyAdmin();
+    },[])
     return (
         <div className='main-body'>
             <h1 className='text-center py-3'>Admin Home</h1>
