@@ -2,13 +2,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const DriverSchema = new Schema({
-    drivername:{type: string},
-    driveremail: {type: string},
-    drivernumber: {type: string},
-    driveraddress: {type: string},
-    driverarea: {type: string},
-    driverid: {type: string},
-    role: {type: string, default: "Driver"},
+    drivername:{type: String},
+    driveremail: {type: String, required: true},
+    driverpassword: {type: String, required: true},
+    drivernumber: {type: String},
+    driveraddress: {type: String},
+    driverarea: {type: String},
+    driverid: {type: String},
+    role: {type: String, default: "Driver"},
     date:{type: Date, default: Date.now},
 });
 

@@ -10,7 +10,8 @@ const port = process.env.PORT
 app.use(cors())
 app.use(express.json())
 
-
+app.use("/admin",require("./routes/admin"));
+app.use("/driver",require("./routes/driver"));
 
 app.listen(port, () => {
   console.log(`Backend on http://localhost:${port}`)

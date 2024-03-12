@@ -9,9 +9,9 @@ require('dotenv').config();
 const JWT_SECRET = process.env.JWT_SECRET
 
 router.post('/create',[
-    body('name', 'Enter A Valid Name').isLength({ min: 3 }),
-    body('email', 'Enter A Valid Email').isEmail(),
-    body('password', 'Password Must Be Atleast 5 Character').isLength({ min: 5 })
+    body('drivername', 'Enter A Valid Name').isLength({ min: 3 }),
+    body('driveremail', 'Enter A Valid Email').isEmail(),
+    body('driverpassword', 'Password Must Be Atleast 5 Character').isLength({ min: 5 })
     ],async (req,res) => {
         let success = false;
         const errors = validationResult(req);
@@ -20,16 +20,17 @@ router.post('/create',[
             return res.status(400).json({success,errors: errors.array() });
         }
         try {
-            let user = await Driver.findOne({email: req.body.email})
+            let user = await Driver.findOne({driveremail: req.body.driveremail})
             if(user)
             {   success = false;
                 return res.status(400).json({success,error: "Sorry A Driver With This Email Already Exist"})
             }
             const salt = await bcrypt.genSalt(10)
-            secPass = await bcrypt.hash(req.body.password, salt)
+            secPass = await bcrypt.hash(req.body.driverpassword, salt)
             user = await Driver.create({
                 drivername:req.body.drivername,
                 driveremail:req.body.driveremail,
+                driverpassword: secPass,
                 drivernumber:req.body.drivernumber,
                 driveraddress:req.body.driveraddress,
                 driverarea:req.body.driverarea,
@@ -52,22 +53,21 @@ router.post('/create',[
 })
 
 router.post('/login',[
-    body('email', 'Enter A Valid Email').isEmail(),
-    body('password', 'Password Cannot Be Blank').exists()
+    body('driveremail', 'Enter A Valid Email').isEmail(),
     ],async (req,res) => {
     let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }  
-    const {email,password} = req.body;
+    const {driveremail,driverpassword} = req.body;
     try {
-        let user = await Driver.findOne({email})
+        let user = await Driver.findOne({driveremail})
         if(!user)
         {
             return res.status(400).json({error: "Please Try To Login With Correct Credentials"})
         }
-        const passwordCompare = await bcrypt.compare(password, user.password);
+        const passwordCompare = await bcrypt.compare(driverpassword, user.driverpassword);
         if(!passwordCompare)
         {
             success = false
