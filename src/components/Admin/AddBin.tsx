@@ -1,0 +1,148 @@
+import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { BinDetails } from '../../interfaces/BinDetails';
+
+const AddBin: React.FC = () => {
+    const [binDetails, setBinDetails] = useState<BinDetails>({
+        name: '',
+        locality: '',
+        landmark: '',
+        city: '',
+        loadtype: '',
+        drivers: [''] // Initially one empty string for the first input field
+    });
+
+    const handleAddDriver = () => {
+        setBinDetails({
+            ...binDetails,
+            drivers: [...binDetails.drivers, ''] // Add an empty string for a new driver
+        });
+    };
+
+    const handleDriverChange = (index: number, value: string) => {
+        const newDrivers = [...binDetails.drivers];
+        newDrivers[index] = value;
+        setBinDetails({
+            ...binDetails,
+            drivers: newDrivers
+        });
+    };
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setBinDetails({ ...binDetails, [name]: value });
+    }
+    const handleItemClick = (value: string) => {
+        setBinDetails({ ...binDetails, loadtype: value });
+    };
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log(binDetails);
+        setBinDetails({
+            name: "",
+            locality: "",
+            landmark: "",
+            city: "",
+            loadtype: "",
+            drivers: [' '],
+        });
+    }
+    return (
+        <div className='main-body pt-10'>
+            <div className='container flex justify-between'>
+                <h2 className='mb-4'>Add Bin Details</h2>
+                <Link to={"/admin_home"} className='mb-4 btn btn-primary text-2xl'>Back</Link>
+            </div>
+            <div className='container bg-white px-5'>
+                <div className='pt-4'>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">
+                                Create Bin
+                            </label>
+                            <input
+                                type="text"
+                                name='name'
+                                className="form-control"
+                                id="name"
+                                value={binDetails.name}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="locality" className="form-label">
+                                Locality
+                            </label>
+                            <input
+                                type="text"
+                                name='locality'
+                                className="form-control"
+                                id="locality"
+                                value={binDetails.locality}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="landmark" className="form-label">
+                                Landmank
+                            </label>
+                            <input
+                                type="text"
+                                name='landmark'
+                                className="form-control"
+                                id="landmark"
+                                value={binDetails.landmark}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="city" className="form-label">
+                                City
+                            </label>
+                            <input
+                                type="text"
+                                name='city'
+                                className="form-control"
+                                id="city"
+                                value={binDetails.city}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label>Drivers:</label>
+                            {binDetails.drivers.map((driver, index) => (
+                                <div key={index}>
+                                    <input type="text" className="form-control my-2" value={driver} onChange={(e) => handleDriverChange(index, e.target.value)} />
+                                </div>
+                            ))}
+                            {binDetails.drivers.length === 1 && (
+                                <button type='button' className='text-nowrap' onClick={handleAddDriver}>Add Driver</button>
+                            )}
+                            {binDetails.drivers.length > 1 && (
+                                <button type='button' className='text-nowrap' onClick={handleAddDriver}>Add Driver</button>
+                            )}
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="loadtype" className="form-label">
+                                Load Type
+                            </label>
+                            <br />
+                            <div className="dropdown">
+                                <a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {binDetails.loadtype || 'Load Type'}
+                                </a>
+                                <ul className="dropdown-menu">
+                                    <li><div className="dropdown-item" onClick={() => handleItemClick('Small')}>Small</div></li>
+                                    <li><div className="dropdown-item" onClick={() => handleItemClick('Medium')}>Medium</div></li>
+                                    <li><div className="dropdown-item" onClick={() => handleItemClick('Large')}>Large</div></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button type='submit' className='btn btn-success w-full my-3'>Add Bin</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default AddBin
