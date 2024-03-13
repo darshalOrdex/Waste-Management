@@ -6,7 +6,8 @@ router.get('/verifyapi', fetchuser , async (req,res) => {
     try 
     {   
         const role = req.user.role;
-        res.send(role);
+        const name = req.user.name;
+        res.json({role,name});
     }
     catch(err)
     {

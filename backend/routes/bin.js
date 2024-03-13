@@ -19,4 +19,17 @@ router.post('/addbin', async (req,res) => {
     }
 })
 
+router.get("/getbins",async(req,res) => {
+    try
+    {
+       const bins=await Bin.find({});    
+       if(!bins || bins.length==0){return res.status(404).json("No Bins Found")};
+       res.json({bins})
+    }
+    catch(err)
+    {
+      return res.status(400).json("Error Fetching Data from Database");
+    }
+})
+
 module.exports = router

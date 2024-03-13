@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 
 const AddDriver : React.FC = () => {
     const [driverDetails, setDriverDetails] = useState({
-        drivername: "",
-        driveremail: "",
-        driverpassword: "",
-        drivernumber: "",
-        driveraddress: "",
-        driverarea: "",
+        name: "",
+        email: "",
+        password: "",
+        phonenumber: "",
+        address: "",
+        area: "",
         driverid: ""
     });
     const handleChange = (e : ChangeEvent<HTMLInputElement>) => {
@@ -24,12 +24,12 @@ const AddDriver : React.FC = () => {
             if(response.data.success)
             {
                 setDriverDetails({
-                    drivername: "",
-                    driveremail: "",
-                    driverpassword: "",
-                    drivernumber: "",
-                    driveraddress: "",
-                    driverarea: "",
+                    name: "",
+                    email: "",
+                    password: "",
+                    phonenumber: "",
+                    address: "",
+                    area: "",
                     driverid: ""
                 })
                 alert("Driver Created")
@@ -47,82 +47,82 @@ const AddDriver : React.FC = () => {
                 <div className='pt-4'>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
-                            <label htmlFor="drivername" className="form-label">
+                            <label htmlFor="name" className="form-label">
                                 Driver Name
                             </label>
                             <input
                                 type="text"
-                                name='drivername'
+                                name='name'
                                 className="form-control"
-                                id="drivername"
-                                value={driverDetails.drivername}
+                                id="name"
+                                value={driverDetails.name}
                                 onChange={handleChange}
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="driveremail" className="form-label">
+                            <label htmlFor="email" className="form-label">
                                 Create Driver Email
                             </label>
                             <input
                                 type="email"
-                                name='driveremail'
+                                name='email'
                                 className="form-control"
-                                id="driveremail"
+                                id="email"
                                 aria-describedby="emailHelp"
-                                value={driverDetails.driveremail}
+                                value={driverDetails.email}
                                 onChange={handleChange}
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="driverpassword" className="form-label">
+                            <label htmlFor="password" className="form-label">
                                 Create Driver Password
                             </label>
                             <input
                                 type="text"
-                                name='driverpassword'
+                                name='password'
                                 className="form-control"
-                                id="driverpassword"
-                                value={driverDetails.driverpassword}
+                                id="password"
+                                value={driverDetails.password}
                                 onChange={handleChange}
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="drivernumber" className="form-label">
+                            <label htmlFor="phonenumber" className="form-label">
                                 Driver Mobile Number
                             </label>
                             <input
                                 type="text"
-                                name='drivernumber'
+                                name='phonenumber'
                                 className="form-control"
-                                id="drivernumber"
+                                id="phonenumber"
                                 maxLength={10}
-                                value={driverDetails.drivernumber}
+                                value={driverDetails.phonenumber}
                                 onChange={handleChange}
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="driveraddress" className="form-label">
+                            <label htmlFor="address" className="form-label">
                                 Driver Address
                             </label>
                             <input
-                                name='driveraddress'
+                                name='address'
                                 className="form-control"
-                                id="driveraddress"
+                                id="address"
                                 type='text'
-                                value={driverDetails.driveraddress}
+                                value={driverDetails.address}
                                 onChange={handleChange}
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="driverarea" className="form-label">
+                            <label htmlFor="area" className="form-label">
                                 Driver Area
                             </label>
                             <input
                                 type="text"
-                                name='driverarea'
+                                name='area'
                                 className="form-control"
-                                id="driverarea"
-                                value={driverDetails.driverarea}
+                                id="area"
+                                value={driverDetails.area}
                                 onChange={handleChange}
                             />
                         </div>

@@ -32,14 +32,8 @@ router.post('/signup',[
                 email: req.body.email,
                 password: secPass,
             })
-            const data = {
-                user:{
-                    id: user.id
-                }
-            }
-            const authtoken = jwt.sign(data, JWT_SECRET)
             success = true;
-            res.json({success,authtoken})
+            res.json({success})
         }
         catch(error)
         {

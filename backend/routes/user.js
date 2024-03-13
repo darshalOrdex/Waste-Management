@@ -34,14 +34,8 @@ router.post('/signup',[
                 phonenumber: req.body.phonenumber,
                 city: req.body.city
             })
-            const data = {
-                user:{
-                    id: user.id
-                }
-            }
-            const authtoken = jwt.sign(data, JWT_SECRET)
             success = true;
-            res.json({success,authtoken})
+            res.json({success})
         }
         catch(error)
         {
@@ -74,12 +68,14 @@ router.post('/login',[
         }
         const data = {
             user:{
-                id: user.id
+                id: user.id,
+                name: user.name,
+                role: user.role
             }
         }
-        const authtoken = jwt.sign(data, JWT_SECRET)
-        success = true
-        res.json({success, authtoken})
+        const authtoken = jwt.sign(data, JWT_SECRET);
+        success = true;
+        res.json({success, authtoken});
     }    
     catch(err)
     {

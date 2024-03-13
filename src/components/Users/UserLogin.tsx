@@ -1,10 +1,45 @@
-import React from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import image from "../../assets/images/garbage-truck-waste.png"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { UserDetails } from '../../interfaces/UserDetails'
+import axios from 'axios'
+import { useUrlShortener } from '../../context/VerifyUserContext'
 
 const UserLogin : React.FC = () => {
+    const { verifyUser } = useUrlShortener();
+    useEffect(() => {
+        verifyUser();
+    },[])
+    const navigate = useNavigate();
+    const [credentials, setCredentials] = useState<UserDetails>({
+        email: "",
+        password: "",
+    })
+    const handleChange = (e : ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target; 
+        setCredentials({...credentials, [name] : value});
+    }
+    const handleSubmit = async(e : FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        await axios.post("http://localhost:5000/users/login",credentials)
+        .then(response => {
+            if(response.data.success) {
+                alert('Successfully Logged In');
+                localStorage.setItem("authtoken", response.data.authtoken);
+                navigate('/user_home')
+                setCredentials({
+                    name: "",
+                    email: "",
+                    password: "",
+                    phonenumber: "",
+                    city: "",
+                });
+            }
+        })
+        .catch(err => alert(err.response.data.errors[0].msg))
+    }
     return (
-        <section className="loginpage">
+        <section className="min-h-screen">
             <div className="container py-5 h-100">
                 <div className="row d-flex align-items-center justify-content-center h-100">
                     <div className="col-md-8 col-lg-7 col-xl-6">
@@ -16,27 +51,33 @@ const UserLogin : React.FC = () => {
                     </div>
                     <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                             <h2>User Login</h2>
-                            <form className='pt-4'>
+                            <form className='pt-4' onSubmit={handleSubmit}>
                                 {/* Email input */}
                                 <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form1Example13">
+                                    <label className="form-label" htmlFor="email">
                                         Email address
                                     </label><br/>
                                     <input
                                         type="email"
-                                        id="form1Example13"
+                                        id="email"
+                                        name='email'
                                         className="bg-white w-full py-2 border-1 border-gray-500 rounded-lg ps-3"
+                                        value={credentials.email}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 {/* Password input */}
                                 <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form1Example23">
+                                    <label className="form-label" htmlFor="password">
                                         Password
                                     </label>
                                     <input
                                         type="password"
-                                        id="form1Example23"
+                                        id="password"
+                                        name='password'
                                         className="bg-white w-full py-2 border-1 border-gray-500 rounded-lg ps-3"
+                                        value={credentials.password}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 <div className='text-center pb-3'>
@@ -44,9 +85,9 @@ const UserLogin : React.FC = () => {
                                 </div>
                                 {/* Submit button */}
                                 <div className='text-center'>
-                                    <Link to={"/user_home"} type="submit" className="btn btn-primary btn-lg btn-block">
+                                    <button type="submit" className="btn btn-primary btn-lg btn-block">
                                         Sign in
-                                    </Link>
+                                    </button>
                                 </div>
                             </form>
                         </div>

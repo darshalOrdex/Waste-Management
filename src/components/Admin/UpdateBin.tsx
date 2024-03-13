@@ -1,17 +1,17 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { DriverDetails } from '../../interfaces/DriverDetails';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { BinDetails } from '../../interfaces/BinDetails';
 
-const UpdateDriver : React.FC = () => {
-    const [drivers, setDrivers] = useState<DriverDetails[]>([]);
-    const getDriver = async() => {
-        await axios.get("http://localhost:5000/driver/getdrivers")
-        .then(response => {setDrivers(response.data.drivers)})
+const UpdateBin = () => {
+    const [bins, setBins] = useState<BinDetails[]>([]);
+    const fetchBins = async() => {
+        await axios.get("http://localhost:5000/bin/getbins")
+        .then(response => {setBins(response.data.bins)})
         .catch(err => console.log(err))
     }
     useEffect(() => {
-        getDriver();
+        fetchBins();
     },[])
     return (
         <div>
@@ -21,13 +21,13 @@ const UpdateDriver : React.FC = () => {
             </div>
             <div className='container pb-10 min-h-screen'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto'>
-                    {   drivers.map((item : DriverDetails) => {
+                    {   bins.map((item : BinDetails,index : number) => {
                             return (
-                                <div className='bg-white w-full mb-4 py-3 ps-3'>
-                                    <div>ID :- {item.driverid}</div>
+                                <div key={index} className='bg-white w-full mb-4 py-3 ps-3'>
                                     <div>Name :- {item.name}</div>
-                                    <div>Email :- {item.email}</div>
-                                    <div>Phone Number :- {item.phonenumber}</div>
+                                    <div>Load Type :- {item.loadtype}</div>
+                                    <div>Locality :- {item.locality}</div>
+                                    <div>City :- {item.city}</div>
                                 </div>
                             )
                         })
@@ -38,4 +38,4 @@ const UpdateDriver : React.FC = () => {
     )
 }
 
-export default UpdateDriver
+export default UpdateBin

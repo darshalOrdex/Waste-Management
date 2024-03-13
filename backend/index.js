@@ -13,7 +13,8 @@ app.use(express.json())
 app.use("/admin",require("./routes/admin"));
 app.use("/driver",require("./routes/driver"));
 app.use("/bin",require("./routes/bin"));
-app.use("/verify",require("./routes/verify"))
+app.use("/verify",require("./routes/verify"));
+app.use("/users",require("./routes/user"));
 
 app.listen(port, () => {
   console.log(`Backend on http://localhost:${port}`)

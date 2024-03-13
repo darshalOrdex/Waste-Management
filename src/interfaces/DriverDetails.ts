@@ -1,8 +1,8 @@
 export interface DriverDetails {
-    drivername:string,
-    driveremail:string,
-    drivernumber:string,
-    driveraddress:string,
-    driverarea:string,
+    name:string,
+    email:string,
+    phonenumber:string,
+    address:string,
+    area:string,
     driverid:string,
 }
