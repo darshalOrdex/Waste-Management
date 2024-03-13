@@ -23,11 +23,14 @@ const UpdateBin : React.FC = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto'>
                     {   bins.map((item : BinDetails,index : number) => {
                             return (
-                                <div key={index} className='bg-white w-full mb-4 py-3 ps-3'>
-                                    <div>Name :- {item.name}</div>
-                                    <div>Load Type :- {item.loadtype}</div>
-                                    <div>Locality :- {item.locality}</div>
-                                    <div>City :- {item.city}</div>
+                                <div>
+                                    <div key={index} className='bg-white w-full mb-4 py-3 ps-3'>
+                                        <div>Name :- {item.name}</div>
+                                        <div>Load Type :- {item.loadtype}</div>
+                                        <div>Locality :- {item.locality}</div>
+                                        <div>City :- {item.city}</div>
+                                    </div>
+                                    <a href={`https://maps.google.com/?q=${item.latitude},${item.longitude}`} target='_blank' className='btn btn-primary'>Map View</a>
                                 </div>
                             )
                         })
