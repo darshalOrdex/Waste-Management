@@ -4,5 +4,7 @@ export interface BinDetails {
     landmark: string,
     city: string,
     loadtype: string,
-    drivers: string[]
+    drivers: string[],
+    latitude: number, 
+    longitude: number
 }

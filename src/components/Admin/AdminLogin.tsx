@@ -1,10 +1,16 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import image from "../../assets/images/garbage-truck-waste.png"
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AdminLogin : React.FC = () => {
     const navigate = useNavigate();
+    useEffect(() => {
+        if(localStorage.getItem("authtoken"))
+        {
+            navigate("/admin_home")
+        }
+    },[])
     const [credentials, setCredentials] = useState({
         email: "",
         password:""

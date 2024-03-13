@@ -5,9 +5,9 @@ const Bin = require('../models/BinModel');
 router.post('/addbin', async (req,res) => {
     try
     {
-        const{name,locality,landmark,city,loadtype,drivers} = req.body; 
+        const{name,locality,landmark,city,loadtype,drivers,latitude,longitude} = req.body; 
         const note = new Bin({
-            name,locality,landmark,city,loadtype,drivers
+            name,locality,landmark,city,loadtype,drivers,latitude,longitude
         })
         const savedNote = await note.save();
         res.json(savedNote);

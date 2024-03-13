@@ -1,16 +1,17 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import image from "../../assets/images/garbage-truck-waste.png"
-import { Link, useNavigate } from 'react-router-dom'
-import { UserDetails } from '../../interfaces/UserDetails'
-import axios from 'axios'
-import { useUrlShortener } from '../../context/VerifyUserContext'
+import { Link, useNavigate } from 'react-router-dom';
+import { UserDetails } from '../../interfaces/UserDetails';
+import axios from 'axios';
 
 const UserLogin : React.FC = () => {
-    const { verifyUser } = useUrlShortener();
-    useEffect(() => {
-        verifyUser();
-    },[])
     const navigate = useNavigate();
+    useEffect(() => {
+        if(localStorage.getItem("authtoken"))
+        {
+            navigate("/user_home")
+        }
+    },[])
     const [credentials, setCredentials] = useState<UserDetails>({
         email: "",
         password: "",

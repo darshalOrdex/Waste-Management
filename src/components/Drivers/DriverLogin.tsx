@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import image from "../../assets/images/garbage-truck-waste.png"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const DriverLogin : React.FC = () => {
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(localStorage.getItem("authtoken"))
+        {
+            navigate("/driver_home")
+        }
+    },[])
     return (
         <section className="min-h-screen">
             <div className="container py-5 h-100">

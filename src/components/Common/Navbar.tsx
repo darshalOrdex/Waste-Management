@@ -1,12 +1,29 @@
-import React, { useEffect } from 'react'
-import { NavDropdown } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
 import logo from '../../assets/images/logo.png'
-import { useUrlShortener } from '../../context/VerifyUserContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Navbar: React.FC = () => {
-    const { user, verifyUser } = useUrlShortener();
+    const [user, setUser] = useState("");
     const navigate = useNavigate();
+    const axiosConfig = {
+        headers: {
+          'authtoken': localStorage.getItem("authtoken")
+        }
+    };
+    const verifyUser = async() => {
+        if(localStorage.getItem("authtoken"))
+        {
+            axios.get("http://localhost:5000/verify/verifyapi",axiosConfig)
+            .then((response : any) => {
+                if(response.data.role)
+                {
+                    setUser(response.data.name);
+                    navigate(`/${response.data.role.toLowerCase()}_home`)
+                }
+            })
+        }
+    }
     const logOut = () => {
         localStorage.removeItem("authtoken");
         navigate("/")

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BinDetails } from '../../interfaces/BinDetails';
 
-const UpdateBin = () => {
+const UpdateBin : React.FC = () => {
     const [bins, setBins] = useState<BinDetails[]>([]);
     const fetchBins = async() => {
         await axios.get("http://localhost:5000/bin/getbins")
