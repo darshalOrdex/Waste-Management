@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import second from "../../assets/images/homeimg.jpg"
 import { Link } from 'react-router-dom'
+import { useUrlShortener } from '../../context/VerifyUserContext';
 
 const Home : React.FC = () => {
+    const { verifyUser } = useUrlShortener();
     useEffect(() => {
-        
+        verifyUser();
     },[])
     return (
         <div>

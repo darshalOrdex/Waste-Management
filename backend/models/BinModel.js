@@ -7,7 +7,7 @@ const BinSchema = new Schema({
     landmark: { type : String },
     city: { type : String },
     loadtype: { type : String },
-    drivers: { type : [String] },
+    driveremail: { type : String },
     latitude: { type : Number }, 
     longitude: { type : Number }
 });

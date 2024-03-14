@@ -18,6 +18,8 @@ import ProfilePage from './components/Common/ProfilePage';
 import UpdateDriver from './components/Admin/UpdateDriver';
 import { VerifyUserProvider } from './context/VerifyUserContext';
 import UpdateBin from './components/Admin/UpdateBin';
+import AddComplaint from './components/Users/AddComplaint';
+import MyComplaints from './components/Users/MyComplaints';
 
 function App() {
     return (
@@ -41,6 +43,8 @@ function App() {
                         <Route path='/user_signup' element={<UserSignup />} />
                         <Route path='/user_home' element={<UserHome />} />
                         <Route path='/user_add_complaint' element={<UserAddComplaint />} />
+                        <Route path='/user_complaint' element={<AddComplaint />} />
+                        <Route path='/user_view_complaint' element={<MyComplaints />} />
                         {/* User Routes End */}
                         {/* Driver Routes Start */}
                         <Route path='/driver_login' element={<DriverLogin />} />

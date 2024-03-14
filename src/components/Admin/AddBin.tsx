@@ -11,26 +11,10 @@ const AddBin: React.FC = () => {
         landmark: '',
         city: '',
         loadtype: '',
-        drivers: [''], // Initially one empty string for the first input field
+        driveremail: '',
         latitude: 0, 
         longitude: 0
     });
-
-    const handleAddDriver = () => {
-        setBinDetails({
-            ...binDetails,
-            drivers: [...binDetails.drivers, ''] // Add an empty string for a new driver
-        });
-    };
-
-    const handleDriverChange = (index: number, value: string) => {
-        const newDrivers = [...binDetails.drivers];
-        newDrivers[index] = value;
-        setBinDetails({
-            ...binDetails,
-            drivers: newDrivers
-        });
-    };
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setBinDetails({ ...binDetails, [name]: value });
@@ -49,7 +33,7 @@ const AddBin: React.FC = () => {
             landmark: "",
             city: "",
             loadtype: "",
-            drivers: [' '],
+            driveremail: ' ',
             latitude: 0, 
             longitude: 0
         });
@@ -120,18 +104,8 @@ const AddBin: React.FC = () => {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label>Drivers:</label>
-                                {binDetails.drivers.map((driver, index) => (
-                                    <div key={index}>
-                                        <input type="text" className="form-control my-2" value={driver} onChange={(e) => handleDriverChange(index, e.target.value)} />
-                                    </div>
-                                ))}
-                                {binDetails.drivers.length === 1 && (
-                                    <button type='button' className='text-nowrap' onClick={handleAddDriver}>Add Driver</button>
-                                )}
-                                {binDetails.drivers.length > 1 && (
-                                    <button type='button' className='text-nowrap' onClick={handleAddDriver}>Add Driver</button>
-                                )}
+                                <label htmlFor="driveremail">Driver Email:</label>
+                                <input id='driveremail' name='driveremail' type="email" className="form-control my-2" value={binDetails.driveremail} onChange={handleChange} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="loadtype" className="form-label">

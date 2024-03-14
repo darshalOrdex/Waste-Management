@@ -15,6 +15,7 @@ app.use("/driver",require("./routes/driver"));
 app.use("/bin",require("./routes/bin"));
 app.use("/verify",require("./routes/verify"));
 app.use("/users",require("./routes/user"));
+app.use("/complaint",require("./routes/complaint"));
 
 app.listen(port, () => {
   console.log(`Backend on http://localhost:${port}`)

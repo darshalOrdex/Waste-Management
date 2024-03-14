@@ -6,20 +6,20 @@ import axios from 'axios';
 const Navbar: React.FC = () => {
     const [user, setUser] = useState("");
     const navigate = useNavigate();
+    let authtoken = localStorage.getItem("authtoken");
     const axiosConfig = {
         headers: {
           'authtoken': localStorage.getItem("authtoken")
         }
     };
     const verifyUser = async() => {
-        if(localStorage.getItem("authtoken"))
+        if(authtoken)
         {
             axios.get("http://localhost:5000/verify/verifyapi",axiosConfig)
             .then((response : any) => {
                 if(response.data.role)
                 {
                     setUser(response.data.name);
-                    navigate(`/${response.data.role.toLowerCase()}_home`)
                 }
             })
         }
@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
     }
     useEffect(() => {
         verifyUser();
-    }, [])
+    }, [authtoken])
     return (
         <>
             {/* Navbar */}

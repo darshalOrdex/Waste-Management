@@ -1,11 +1,12 @@
-export interface BinDetails {
-    _id? : any,
+export interface ComplaintDetails {
+    userId: any,
     name: string,
     locality: string,
     landmark: string,
     city: string,
-    loadtype: string,
+    complaint: string,
     driveremail: string,
     latitude: number, 
-    longitude: number
+    longitude: number,
+    status: string
 }
