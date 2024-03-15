@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import route from "../../assets/images/route.png"
+import { useUrlShortener } from '../../context/VerifyUserContext';
 
 const DriverHome : React.FC = () => {
+    const { verifyUser } = useUrlShortener();
+    useEffect(() => {
+        verifyUser();
+    },[])
     return (
         <div>
             <h1 className='text-center py-3'>Driver Home</h1>

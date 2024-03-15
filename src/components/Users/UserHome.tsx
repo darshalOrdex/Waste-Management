@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import complaint from '../../assets/images/complaint-6.jpg';
 import user from '../../assets/images/png-transparent-user.png';
+import { useUrlShortener } from '../../context/VerifyUserContext';
 
 const UserHome : React.FC = () => {
+    const { verifyUser } = useUrlShortener();
+    useEffect(() => {
+        verifyUser();
+    },[])
     return (
         <div>
             <h1 className='text-center py-3'>User Home</h1>
