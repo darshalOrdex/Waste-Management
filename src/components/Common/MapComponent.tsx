@@ -14,7 +14,7 @@ const MapComponent: React.FC<{ onMapClick: (latitude: number, longitude: number)
             document.body.appendChild(script);
             script.onload = () => {
                 const mapOptions = {
-                    center: new window.google.maps.LatLng(18.9300, 72.8200),
+                    center: new window.google.maps.LatLng(23.033863, 72.585022),
                     zoom: 14,
                     mapTypeId: window.google.maps.MapTypeId.ROADMAP
                 };
