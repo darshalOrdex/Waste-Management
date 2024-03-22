@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const Navbar: React.FC = () => {
     const [user, setUser] = useState("");
+    const [role, setRole] = useState("");
     const navigate = useNavigate();
     let authtoken = localStorage.getItem("authtoken");
     const axiosConfig = {
@@ -20,6 +21,7 @@ const Navbar: React.FC = () => {
                 if(response.data.role)
                 {
                     setUser(response.data.name);
+                    setRole(response.data.role);
                 }
             })
         }
@@ -37,7 +39,7 @@ const Navbar: React.FC = () => {
             <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
                 {/* Container wrapper */}
                 <div className="container-fluid">
-                    <a className="navbar-brand mt-2 mt-lg-0" href="#">
+                    <a className="navbar-brand mt-2 mt-lg-0" href="#" onClick={()=>navigate(`/${role.toLowerCase()}_home`)}>
                         <img
                             src={logo}
                             height={90}

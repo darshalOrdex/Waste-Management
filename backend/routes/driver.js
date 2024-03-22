@@ -50,16 +50,16 @@ router.post('/login',[
     body('email', 'Enter A Valid Email').isEmail(),
     ],async (req,res) => {
     let success = false;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }  
-    const {email,password} = req.body;
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //   return res.status(400).json({ errors: errors.array() });
+    // }  
     try {
+        const {email,password} = req.body;
         let user = await Driver.findOne({email})
         if(!user)
         {
-            return res.status(400).json({error: "Please Try To Login With Correct Credentials"})
+            return res.status(400).send({error: "Please Try To Login With Correct Credentials"})
         }
         const passwordCompare = await bcrypt.compare(password, user.password);
         if(!passwordCompare)
@@ -69,7 +69,10 @@ router.post('/login',[
         }
         const data = {
             user:{
-                id: user.id
+                id: user.id,
+                name : user.name,
+                email : user.email,
+                role: user.role
             }
         }
         const authtoken = jwt.sign(data, JWT_SECRET)

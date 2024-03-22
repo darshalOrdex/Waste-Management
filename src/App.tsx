@@ -20,6 +20,8 @@ import { VerifyUserProvider } from './context/VerifyUserContext';
 import UpdateBin from './components/Admin/UpdateBin';
 import AddComplaint from './components/Users/AddComplaint';
 import MyComplaints from './components/Users/MyComplaints';
+import DriverWork from './components/Drivers/DriverWork';
+import UpdateBinStatus from './components/Drivers/UpdateBinStatus';
 
 function App() {
     return (
@@ -49,6 +51,8 @@ function App() {
                         {/* Driver Routes Start */}
                         <Route path='/driver_login' element={<DriverLogin />} />
                         <Route path='/driver_home' element={<DriverHome />} />
+                        <Route path='/driver_work' element={ <DriverWork /> }/>
+                        <Route path='/driver_status/:id' element={ <UpdateBinStatus/> }/>
                         {/* Driver Routes End */}
                     </Routes>
                 </VerifyUserProvider>

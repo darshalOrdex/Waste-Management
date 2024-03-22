@@ -1,9 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import image from "../../assets/images/garbage-truck-waste.png"
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 const DriverLogin : React.FC = () => {
     const navigate = useNavigate();
+    const [credentials, setCredentials] = useState({
+        email : "",
+        password : ""
+    })
+    const handleChange = (e : ChangeEvent<HTMLInputElement>) => {
+        const { name , value } = e.target;
+        setCredentials({...credentials,[name] : value})
+    }
+    const handleSubmit = async(e : FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        await axios.post("http://localhost:5000/driver/login",credentials)
+        .then(response => {
+            if(response.data.success) {
+                alert('Successfully Logged In');
+                localStorage.setItem("authtoken", response.data.authtoken);
+                navigate('/driver_home')
+                setCredentials({
+                    email: "",
+                    password: "",
+                });
+            }
+        })
+        .catch(err => console.log(err))
+    }
     useEffect(() => {
         if(localStorage.getItem("authtoken"))
         {
@@ -23,16 +48,19 @@ const DriverLogin : React.FC = () => {
                     </div>
                     <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                             <h2>Driver Login</h2>
-                            <form className='pt-4'>
+                            <form className='pt-4' onSubmit={handleSubmit}>
                                 {/* Email input */}
                                 <div className="form-outline mb-4">
-                                    <label className="form-label" htmlFor="form1Example13">
+                                    <label className="form-label" htmlFor="email">
                                         Email address
                                     </label><br/>
                                     <input
                                         type="email"
-                                        id="form1Example13"
+                                        name='email'
+                                        id="email"
                                         className="bg-white w-full py-2 border-1 border-gray-500 rounded-lg ps-3"
+                                        value={credentials.email}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 {/* Password input */}
@@ -42,15 +70,18 @@ const DriverLogin : React.FC = () => {
                                     </label>
                                     <input
                                         type="password"
+                                        name='password'
                                         id="form1Example23"
                                         className="bg-white w-full py-2 border-1 border-gray-500 rounded-lg ps-3"
+                                        value={credentials.password}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 {/* Submit button */}
                                 <div className='text-center'>
-                                    <Link to={"/driver_home"} type="submit" className="btn btn-primary btn-lg btn-block">
+                                    <button type="submit" className="btn btn-primary btn-lg btn-block">
                                         Sign in
-                                    </Link>
+                                    </button>
                                 </div>
                             </form>
                         </div>
