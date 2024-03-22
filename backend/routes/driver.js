@@ -91,4 +91,30 @@ router.get("/getdrivers", async(req,res) => {
     res.json({drivers})
 })
 
+router.put("/updatedriver/:id", async(req,res) => {
+    try {
+        const {name,email,password,phonenumber,address,area,driverid} = req.body;
+        const id = req.params.id;
+        let driver = await Driver.findById(id);
+        if(!driver){return res.status(404).send("Not Found")}
+        const newDriver = {};
+        if(name) {newDriver.name = name}
+        if(email) {newDriver.email = email}
+        if(password) {
+            const salt = await bcrypt.genSalt(10)
+            let secPass = await bcrypt.hash(password, salt)
+            newDriver.password = secPass
+        }
+        if(phonenumber) {newDriver.phonenumber = phonenumber}
+        if(address) {newDriver.address = address}
+        if(area) {newDriver.area = area}
+        if(driverid) {newDriver.driverid = driverid}
+        driver = await Driver.findByIdAndUpdate(id, {$set: newDriver}, {new: true});
+        res.json(driver);
+    } catch (error) {
+        console.log(err.message);
+        res.status(500).send("Internal Server Error Occurred");
+    }
+})
+
 module.exports = router

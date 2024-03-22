@@ -19,6 +19,44 @@ router.post('/addbin', async (req,res) => {
     }
 })
 
+router.put("/updatedetails/:id",async(req,res) => {
+    try {
+        const{name,locality,landmark,city,loadtype,driveremail} = req.body;
+        const id = req.params.id;
+        let bin = await Bin.findById(id);
+        if(!bin){return res.status(404).send("Not Found")}
+        const newBin = {};
+        if(name) {newBin.name = name}
+        if(locality) {newBin.locality = locality}
+        if(landmark) {newBin.landmark = landmark}
+        if(city) {newBin.city = city}
+        if(loadtype) {newBin.loadtype = loadtype}
+        if(driveremail) {newBin.driveremail = driveremail}
+        bin = await Bin.findByIdAndUpdate(id, {$set: newBin}, {new: true});
+        res.json(bin);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal Server Error Occurred");
+    }
+})
+
+router.put("/updatelocation/:id",async(req,res) => {
+    try {
+        const{latitude,longitude} = req.body;
+        const binId = req.params.id;
+        let bin = await Bin.findById(binId)
+        if(!bin){return res.status(404).send("Not Found")}
+        const newBin = {};
+        if(latitude) {newBin.latitude = latitude}
+        if(longitude) {newBin.longitude = longitude} 
+        bin = await Bin.findByIdAndUpdate(binId, {$set: newBin}, {new: true});
+        res.json(bin);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal Server Error Occurred");
+    }
+})
+
 router.get("/getbins",async(req,res) => {
     try
     {
