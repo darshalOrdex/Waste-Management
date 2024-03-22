@@ -30,6 +30,16 @@ router.get("/getcomplaints",fetchuser,async(req,res) => {
     }
 })
 
+router.get("/getallcomplaints",async(req,res) => {
+    try{
+       let complaints = await Complaint.find({});
+       res.json(complaints);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
 router.get("/getcomplaint/:id", async (req, res)=>{
     const id = req.params.id;
     try {
