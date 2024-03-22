@@ -22,7 +22,7 @@ const UserHome : React.FC = () => {
                         <img src={complaint} className='' height={100} width={100}/>
                         <span className='my-auto text-2xl'>My Complaints</span>
                     </Link>
-                    <Link to={"/user_profile_view"} className='bg-white w-full mb-4 py-3 flex no-underline text-black justify-evenly'> 
+                    <Link to={"/user_detail"} className='bg-white w-full mb-4 py-3 flex no-underline text-black justify-evenly'> 
                         <img src={user} className='' height={100} width={100}/>
                         <span className='my-auto text-2xl'>My Profile</span>
                     </Link>      

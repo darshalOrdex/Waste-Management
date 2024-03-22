@@ -25,18 +25,21 @@ const AddBin: React.FC = () => {
     const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await axios.post("http://localhost:5000/bin/addbin",binDetails)
-        .then(response => console.log(response))
+        .then(response => {
+            console.log(response);
+            setBinDetails({
+                name: "",
+                locality: "",
+                landmark: "",
+                city: "",
+                loadtype: "",
+                driveremail: ' ',
+                latitude: 0, 
+                longitude: 0
+            });
+            alert('Bin Created!');
+        })
         .catch(err => console.log(err))
-        setBinDetails({
-            name: "",
-            locality: "",
-            landmark: "",
-            city: "",
-            loadtype: "",
-            driveremail: ' ',
-            latitude: 0, 
-            longitude: 0
-        });
     }
     const handleMapClick = (latitude: number, longitude: number) => {
         setBinDetails({...binDetails,latitude : latitude,longitude : longitude})

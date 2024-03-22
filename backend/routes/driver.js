@@ -100,7 +100,7 @@ router.put("/updatedriver/:id", async(req,res) => {
         const newDriver = {};
         if(name) {newDriver.name = name}
         if(email) {newDriver.email = email}
-        if(password) {
+        if(password.length > 0) {
             const salt = await bcrypt.genSalt(10)
             let secPass = await bcrypt.hash(password, salt)
             newDriver.password = secPass

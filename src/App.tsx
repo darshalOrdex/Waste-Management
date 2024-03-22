@@ -23,6 +23,8 @@ import MyComplaints from './components/Users/MyComplaints';
 import DriverWork from './components/Drivers/DriverWork';
 import UpdateBinStatus from './components/Drivers/UpdateBinStatus';
 import AdminViewComplaints from './components/Admin/AdminViewComplaints';
+import AdminViewUsers from './components/Admin/AdminViewUsers';
+import UserUpdateDetails from './components/Users/UserUpdateDetails';
 
 function App() {
     return (
@@ -41,6 +43,7 @@ function App() {
                         <Route path='/admin_update_driver' element={<UpdateDriver />} />
                         <Route path='/admin_update_bin' element={<UpdateBin />} />
                         <Route path='/view_all_complaints' element={<AdminViewComplaints/>}/>
+                        <Route path='/view_all_users' element={<AdminViewUsers/>}/>
                         {/* Admin Routes End */}
                         {/* User Routes Start*/}
                         <Route path='/user_login' element={<UserLogin />} />
@@ -49,6 +52,7 @@ function App() {
                         <Route path='/user_add_complaint' element={<UserAddComplaint />} />
                         <Route path='/user_complaint' element={<AddComplaint />} />
                         <Route path='/user_view_complaint' element={<MyComplaints />} />
+                        <Route path='/user_detail' element={<UserUpdateDetails/>}/>
                         {/* User Routes End */}
                         {/* Driver Routes Start */}
                         <Route path='/driver_login' element={<DriverLogin />} />

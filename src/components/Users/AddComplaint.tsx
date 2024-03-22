@@ -26,7 +26,7 @@ const AddComplaint: React.FC = () => {
                 latitude : data.latitude, 
                 longitude : data.longitude
             },axiosConfig)
-            .then(response => console.log(response.data))
+            .then(response => {console.log(response.data); alert('Complaint Added!');})
         }
     }
     return (

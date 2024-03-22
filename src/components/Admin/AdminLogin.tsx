@@ -26,6 +26,7 @@ const AdminLogin : React.FC = () => {
             console.log(response.data);
             if(response.data.success)
             {
+                alert('Successfully Logged In!');
                 localStorage.setItem('authtoken', response.data.authtoken);
                 setCredentials({
                     email: "",

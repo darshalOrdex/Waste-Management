@@ -36,7 +36,7 @@ const AdminHome: React.FC = () => {
                         <img src={complaint} className='ms-4 md:ms-16' height={100} width={100} />
                         <span className='my-auto text-2xl mx-auto'>View Complaints</span>
                     </Link>
-                    <Link to={"/add_driver"} className='bg-white w-full mb-4 py-3 flex no-underline text-black'>
+                    <Link to={"/view_all_users"} className='bg-white w-full mb-4 py-3 flex no-underline text-black'>
                         <img src={user} className='ms-4 md:ms-16' height={100} width={100} />
                         <span className='my-auto text-2xl mx-auto'>All Users</span>
                     </Link>

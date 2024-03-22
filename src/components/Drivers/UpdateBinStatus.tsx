@@ -13,7 +13,7 @@ const UpdateBinStatus : React.FC = () => {
     }
     const handleClick = async(status : string) => {
         await axios.put(`http://localhost:5000/complaint/updatecomplaint/${params.id}`,{status : status})
-        .then(response => {console.log(response.data); navigate("/driver_home") })
+        .then(response => {console.log(response.data); alert('Status Updated!'); navigate("/driver_home") })
     }
     useEffect(() => {
         getComplaint();

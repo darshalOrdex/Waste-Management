@@ -15,7 +15,7 @@ const AdminViewComplaints : React.FC = () => {
     return (
         <div>
             <div className='container flex justify-between mt-3'>
-                <h2 className='mb-4'>Update Driver</h2>
+                <h2 className='mb-4'>View All Complaints</h2>
                 <Link to={"/admin_home"} className='mb-4 btn btn-primary text-2xl'>Back</Link>
             </div>
             <div className='container pb-10 min-h-screen'>

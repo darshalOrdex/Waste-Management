@@ -26,7 +26,15 @@ const UpdateDriver: React.FC = () => {
     }
     const onUpdate = (item: any) => {
         setId(item._id)
-        setDriverDetails(item)
+        setDriverDetails({
+            name: item.name,
+            email: item.email,
+            password: "",
+            phonenumber: item.phonenumber,
+            address: item.address,
+            area: item.area,
+            driverid: item.driverid
+        })
     }
     const handleUpdate = async () => {
         await axios.put(`http://localhost:5000/driver/updatedriver/${id}`, driverDetails)

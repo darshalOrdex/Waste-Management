@@ -14,8 +14,8 @@ const MyComplaints : React.FC = () => {
               'authtoken': localStorage.getItem("authtoken")
             }
         };
-        await axios.get("http://localhost:5000/complaint/getcomplaints",axiosConfig)
-        .then(response => setComplaints(response.data.complaints))
+        await axios.get("http://localhost:5000/users/getcomplaints",axiosConfig)
+        .then(response => setComplaints(response.data))
     }
     return (
         <div>
@@ -27,7 +27,7 @@ const MyComplaints : React.FC = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto'>
                     {   complaints.map((item : ComplaintDetails,index : number) => {
                             return (
-                                <div>
+                                <div key={index}>
                                     <div key={index} className='bg-white w-full mb-4 py-3 ps-3'>
                                         <div>Bin Name :- {item.name}</div>
                                         <div>Complaint :- {item.complaint}</div>
