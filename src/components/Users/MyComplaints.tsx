@@ -29,7 +29,7 @@ const MyComplaints : React.FC = () => {
                             return (
                                 <div key={index}>
                                     <div key={index} className='bg-white w-full mb-4 py-3 ps-3'>
-                                        <div>Bin Name :- {item.name}</div>
+                                        {item.name && <div>Bin Name :- {item.name}</div>}
                                         <div>Complaint :- {item.complaint}</div>
                                         <div>Locality :- {item.locality}</div>
                                         <div>Status :- {item.status}</div>

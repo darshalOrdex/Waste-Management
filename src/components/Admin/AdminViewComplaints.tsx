@@ -22,12 +22,24 @@ const AdminViewComplaints : React.FC = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto'>
                     {   complaints.map((item : ComplaintDetails,index : number) => (
                             <div key={index}>
-                            <div className='bg-white w-full mb-4 py-3 ps-3'>
-                                <div>Name :- {item.name}</div>
-                                <div>Locality :- {item.locality}</div>
-                                <div>City :- {item.city}</div>
+                                <div className='bg-white w-full mb-4 py-3 ps-3'>
+                                    <div>Complaint :- {item.complaint}</div>
+                                    <div>Locality :- {item.locality}</div>
+                                    <div>City :- {item.city}</div>
+                                    <div>Driver Email :- {item.driveremail ? item.driveremail : "Not Assigned"}</div>
+                                    <div>Status :- {item.status}</div>
+                                </div>
+                                <div>
+                                    <Link to={`/admin_bin_status/${item._id}`} className='btn btn-primary'>
+                                        Update Status
+                                    </Link>
+                                    {   !item.driveremail &&
+                                        <Link to={`/assign_driver/${item._id}`} className='btn btn-primary ms-2'>
+                                            Assign Driver
+                                        </Link>
+                                    }
+                                </div>  
                             </div>
-                        </div>
                         ))
                     }
                 </div>

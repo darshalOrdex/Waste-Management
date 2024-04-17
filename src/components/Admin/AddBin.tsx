@@ -51,7 +51,7 @@ const AddBin: React.FC = () => {
                 <Link to={"/admin_home"} className='mb-4 btn btn-primary text-2xl'>Back</Link>
             </div>
             <div className='container bg-white px-5'>
-                <div className='pt-4 grid grid-cols-2 gap-4'>
+                <div className='pt-4 grid grid-cols-1 lg:grid-cols-2 gap-4'>
                     <div>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
@@ -153,7 +153,7 @@ const AddBin: React.FC = () => {
                             <button type='submit' className='btn btn-success w-full my-3'>Add Bin</button>
                         </form>
                     </div>
-                    <div>
+                    <div className='w-auto'>
                         <MapComponent onMapClick={handleMapClick} />
                     </div>
                 </div>

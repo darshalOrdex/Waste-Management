@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ComplaintDetails } from '../../interfaces/ComplaintDetails';
 
 const UpdateBinStatus : React.FC = () => {
@@ -19,10 +19,23 @@ const UpdateBinStatus : React.FC = () => {
         getComplaint();
     },[])
     return (
-        <div>
-            <h1 className='text-center py-3'>Update Bin Status</h1>
-            <div className='container pb-10 min-h-screen'>
-                <div className='bg-white w-full mb-4 py-3 ps-3'>
+        <div className='container'>
+            <div className='d-flex justify-content-between align-items-center'>
+                <h1 className='text-center py-3'>Update Bin Status</h1>
+                <Link to="/driver_home"><button className='btn btn-primary'>Back</button></Link>
+            </div>
+            <div className='pb-10 min-h-screen'>
+                <div className='bg-white w-full mb-4 py-3 ps-3 d-flex flex-column justify-content-center align-items-center'>
+                    <div className='my-4 flex flex-col md:flex-row gap-5'>
+                        <div>
+                            <h2>Complaint Image</h2>
+                            <img src={complaint?.complaintImage} width={250} height={300} alt='image'/>
+                        </div>
+                        <div>
+                            <h2>Driver Image</h2>
+                            <img src={complaint?.driverImage} width={250} height={300} alt='image'/>
+                        </div>
+                    </div>
                     <div className="dropdown">
                         <a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {complaint?.status}

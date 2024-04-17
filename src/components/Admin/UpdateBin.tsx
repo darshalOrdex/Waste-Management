@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BinDetails } from '../../interfaces/BinDetails';
-import { Button, Modal } from 'react-bootstrap';
 
 const UpdateBin: React.FC = () => {
     const [bins, setBins] = useState<BinDetails[]>([]);

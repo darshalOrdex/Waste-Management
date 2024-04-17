@@ -22,7 +22,7 @@ const DriverWork : React.FC = () => {
                 {   complaints.map((item : any,index : number) => (
                         <div>
                             <div key={index} className='bg-white w-full mb-4 py-3 ps-3'>
-                                <div>Name :- {item.name}</div>
+                                {item.name && <div>Name :- {item.name}</div>}
                                 <div>Complaint :- {item.complaint}</div>
                                 <div>Locality :- {item.locality}</div>
                                 <div>City :- {item.city}</div>
@@ -30,7 +30,7 @@ const DriverWork : React.FC = () => {
                             </div>
                             <a href={`https://maps.google.com/?q=${item.latitude},${item.longitude}`} target='_blank' className='btn btn-primary'>Map View</a>
                             {   item.status === "Pending" && 
-                                <Link to={`/driver_status/${item._id}`} className='btn btn-primary mx-3'>Update Status</Link>
+                                <Link to={`/driver_upload/${item._id}`} className='btn btn-primary mx-3'>Update Status</Link>
                             }
                         </div>
                     ))

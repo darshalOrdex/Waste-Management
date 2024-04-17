@@ -8,6 +8,8 @@ const ComplaintSchema = new Schema({
     landmark: { type : String },
     city: { type : String },
     complaint: {type : String},
+    complaintImage: {type : String},
+    driverImage: {type : String},
     driveremail: { type : String },
     latitude: { type : Number }, 
     longitude: { type : Number },

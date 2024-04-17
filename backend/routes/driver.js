@@ -1,5 +1,6 @@
 const express = require('express');
 const Driver = require('../models/DriverModel');
+const Complaint = require('../models/ComplaintModel');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
@@ -112,6 +113,19 @@ router.put("/updatedriver/:id", async(req,res) => {
         driver = await Driver.findByIdAndUpdate(id, {$set: newDriver}, {new: true});
         res.json(driver);
     } catch (error) {
+        console.log(err.message);
+        res.status(500).send("Internal Server Error Occurred");
+    }
+})
+
+router.get("/getdriverlocality/:id", async(req,res) => {
+    try {
+        const id = req.params.id;
+        const complaint = await Complaint.findById(id);
+        const locality = complaint.locality;
+        const driver = await Driver.find({area: locality});
+        res.json(driver)
+    } catch (err) {
         console.log(err.message);
         res.status(500).send("Internal Server Error Occurred");
     }

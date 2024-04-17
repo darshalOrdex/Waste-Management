@@ -10,22 +10,22 @@ const UserHome : React.FC = () => {
         verifyUser();
     },[])
     return (
-        <div>
+        <div className='min-h-screen'>
             <h1 className='text-center py-3'>User Home</h1>
             <div className='container pb-10'>
-                <div className='mx-20'>
-                    <Link to={"/user_add_complaint"} className='bg-white w-full mb-4 py-3 flex no-underline text-black justify-evenly'> 
+                <div className='mx-3 lg:mx-20'>
+                    <Link to={"/user_add_complaint"} className='bg-white w-full mb-4 py-3 flex no-underline text-black justify-evenly gap-5'> 
                         <img src={complaint} className='' height={100} width={100}/>
-                        <span className='my-auto text-2xl'>Generate Complaint</span>
+                        <span className='my-auto text-2xl'>Generate Bin Complaint</span>
                     </Link>
-                    <Link to={"/user_view_complaint"} className='bg-white w-full mb-4 py-3 flex no-underline text-black justify-evenly'> 
+                    <Link to={"/user_view_complaint"} className='bg-white w-full mb-4 py-3 flex no-underline text-black justify-evenly gap-5'> 
                         <img src={complaint} className='' height={100} width={100}/>
                         <span className='my-auto text-2xl'>My Complaints</span>
                     </Link>
-                    <Link to={"/user_detail"} className='bg-white w-full mb-4 py-3 flex no-underline text-black justify-evenly'> 
+                    <Link to={"/user_image_complaint"} className='bg-white w-full mb-4 py-3 flex no-underline text-black justify-evenly gap-5'> 
                         <img src={user} className='' height={100} width={100}/>
-                        <span className='my-auto text-2xl'>My Profile</span>
-                    </Link>      
+                        <span className='my-auto text-2xl'>Generate Image Complaint</span>
+                    </Link>     
                 </div>
             </div>
         </div>
