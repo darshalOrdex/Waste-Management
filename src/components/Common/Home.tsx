@@ -10,9 +10,9 @@ const Home : React.FC = () => {
     },[])
     return (
         <div>
-            <div className='container pt-3 pb-5 min-h-screen'>
+            <div className='container pt-3 pb-5'>
                 <img src={second} className='h-[55vh] w-full xl:w-[65vw] mx-auto'/>
-                <div className='grid grid-cols-1 md:grid-cols-3 text-center mt-5 gap-2 md:gap-0'>
+                <div className='grid grid-cols-3 md:grid-cols-3 text-center mt-5 gap-2 md:gap-0'>
                     <div>
                         <Link to="/admin_login"><button className='btn btn-primary'>Login As Admin</button></Link>
                     </div>

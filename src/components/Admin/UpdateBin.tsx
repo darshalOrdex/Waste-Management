@@ -2,10 +2,12 @@ import axios from 'axios'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BinDetails } from '../../interfaces/BinDetails';
+import Spinner from '../Common/Spinner';
 
 const UpdateBin: React.FC = () => {
     const [bins, setBins] = useState<BinDetails[]>([]);
     const [id, setId] = useState();
+    const [loading, setLoading] = useState(false);
     const [binDetails, setBinDetails] = useState({
         name: '',
         locality: '',
@@ -30,8 +32,9 @@ const UpdateBin: React.FC = () => {
             .then(response => { console.log(response.data)})
     }
     const fetchBins = async () => {
+        setLoading(true);
         await axios.get("http://localhost:5000/bin/getbins")
-            .then(response => { setBins(response.data.bins) })
+            .then(response => { setBins(response.data.bins); setLoading(false) })
             .catch(err => console.log(err))
     }
     useEffect(() => {
@@ -39,11 +42,12 @@ const UpdateBin: React.FC = () => {
     }, [])
     return (
         <div>
+            {loading && <Spinner />}
             <div className='container flex justify-between mt-3'>
                 <h2 className='mb-4'>Update Driver</h2>
                 <Link to={"/admin_home"} className='mb-4 btn btn-primary text-2xl'>Back</Link>
             </div>
-            <div className='container pb-10 min-h-screen'>
+            <div className='container pb-10'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto'>
                     {bins.map((item: BinDetails, index: number) => {
                         return (
@@ -56,7 +60,7 @@ const UpdateBin: React.FC = () => {
                                 </div>
                                 <a href={`https://maps.google.com/?q=${item.latitude},${item.longitude}`} target='_blank' className='btn btn-primary'>Map View</a>
                                 <button type="button" className="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => { onUpdate(item) }}>
-                                    Launch demo modal
+                                    Update Details
                                 </button>
                             </div>
                         )

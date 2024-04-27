@@ -12,7 +12,7 @@ const AdminHome: React.FC = () => {
         verifyUser();
     },[])
     return (
-        <div className='main-body min-h-screen'>
+        <div>
             <h1 className='text-center py-3'>Admin Home</h1>
             <div className='container pb-10'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>

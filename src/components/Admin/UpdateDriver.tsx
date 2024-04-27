@@ -2,10 +2,12 @@ import axios from 'axios'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { DriverDetails } from '../../interfaces/DriverDetails';
 import { Link } from 'react-router-dom';
+import Spinner  from '../Common/Spinner';
 
 const UpdateDriver: React.FC = () => {
     const [drivers, setDrivers] = useState<DriverDetails[]>([]);
     const [id, setId] = useState();
+    const [loading, setLoading] = useState(false);
     const [driverDetails, setDriverDetails] = useState({
         name: "",
         email: "",
@@ -20,8 +22,9 @@ const UpdateDriver: React.FC = () => {
         setDriverDetails({ ...driverDetails, [name]: value })
     }
     const getDriver = async () => {
+        setLoading(true)
         await axios.get("http://localhost:5000/driver/getdrivers")
-            .then(response => { setDrivers(response.data.drivers) })
+            .then(response => { setDrivers(response.data.drivers); setLoading(false)})
             .catch(err => console.log(err))
     }
     const onUpdate = (item: any) => {
@@ -45,11 +48,12 @@ const UpdateDriver: React.FC = () => {
     }, [])
     return (
         <div>
+            {loading ? <Spinner /> : null}
             <div className='container flex justify-between mt-3'>
                 <h2 className='mb-4'>Update Driver</h2>
                 <Link to={"/admin_home"} className='mb-4 btn btn-primary text-2xl'>Back</Link>
             </div>
-            <div className='container pb-10 min-h-screen'>
+            <div className='container pb-10'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto'>
                     {drivers.map((item: DriverDetails, index: number) => {
                         return (
@@ -60,8 +64,8 @@ const UpdateDriver: React.FC = () => {
                                     <div>Email :- {item.email}</div>
                                     <div>Phone Number :- {item.phonenumber}</div>
                                 </div>
-                                <button type="button" className="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => { onUpdate(item) }}>
-                                    Launch demo modal
+                                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => { onUpdate(item) }}>
+                                    Update Details
                                 </button>
                             </div>
                         )

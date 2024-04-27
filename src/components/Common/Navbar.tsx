@@ -42,7 +42,6 @@ const Navbar: React.FC = () => {
                     <a className="navbar-brand mt-2 mt-lg-0" href="#" onClick={()=>navigate(`/${role.toLowerCase()}_home`)}>
                         <img
                             src={logo}
-                            height={90}
                             className='logo'
                             alt="MDB Logo"
                             loading="lazy"

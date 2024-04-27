@@ -1,6 +1,40 @@
-.logo{
+.logo {
     height: 90px !important;
 }
-.main-body{
+
+.main-body {
     background-color: #E5E9FF;
+    height: 100vh;
+}
+
+@media screen and (max-width: 767px) {
+    .main-body {
+        background-color: #E5E9FF;
+        height: 120%;
+    }
+    .logo {
+        width: 170px;
+    }
+    .loader { 
+        width: 30% !important;
+        height: 18%;
+    }
+}
+
+.loader-container {
+    display: block;
+    position: absolute;
+    height: 85vh;
+    width: 100vw;
+    background-color: rgb(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);   
+    width: 8%;
+    height: 18%;
 }
