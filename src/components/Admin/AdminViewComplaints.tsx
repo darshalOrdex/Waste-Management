@@ -18,7 +18,7 @@ const AdminViewComplaints : React.FC = () => {
                 <h2 className='mb-4'>View All Complaints</h2>
                 <Link to={"/admin_home"} className='mb-4 btn btn-primary text-2xl'>Back</Link>
             </div>
-            <div className='container pb-10 min-h-screen'>
+            <div className='container pb-10'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto'>
                     {   complaints.map((item : ComplaintDetails,index : number) => (
                             <div key={index}>
@@ -30,9 +30,11 @@ const AdminViewComplaints : React.FC = () => {
                                     <div>Status :- {item.status}</div>
                                 </div>
                                 <div>
-                                    <Link to={`/admin_bin_status/${item._id}`} className='btn btn-primary'>
+                                    {   item.status === "Pending" &&
+                                        <Link to={`/admin_bin_status/${item._id}`} className='btn btn-primary'>
                                         Update Status
-                                    </Link>
+                                        </Link>
+                                    }
                                     {   !item.driveremail &&
                                         <Link to={`/assign_driver/${item._id}`} className='btn btn-primary ms-2'>
                                             Assign Driver

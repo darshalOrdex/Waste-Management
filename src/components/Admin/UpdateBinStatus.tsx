@@ -33,7 +33,11 @@ const UpdateBinStatus : React.FC = () => {
                         </div>
                         <div>
                             <h2>Driver Image</h2>
-                            <img src={complaint?.driverImage} width={250} height={300} alt='image'/>
+                            {   complaint?.driverImage ?
+                                <img src={complaint?.driverImage} width={250} height={300} alt='image'/>
+                                :
+                                <div>No Driver Image Uploaded</div>
+                            }
                         </div>
                     </div>
                     <div className="dropdown">
@@ -41,7 +45,7 @@ const UpdateBinStatus : React.FC = () => {
                             {complaint?.status}
                         </a>
                         <ul className="dropdown-menu">
-                            <li><div className="dropdown-item" onClick={() => handleClick("Completed")}>Completed</div></li>
+                            <li><div className={complaint?.driverImage ? `dropdown-item` : `dropdown-item disabled`} onClick={() => handleClick("Completed")}>Completed</div></li>
                         </ul>
                     </div>
                 </div>

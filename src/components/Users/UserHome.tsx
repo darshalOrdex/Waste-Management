@@ -10,7 +10,7 @@ const UserHome : React.FC = () => {
         verifyUser();
     },[])
     return (
-        <div className='min-h-screen'>
+        <div>
             <h1 className='text-center py-3'>User Home</h1>
             <div className='container pb-10'>
                 <div className='mx-3 lg:mx-20'>

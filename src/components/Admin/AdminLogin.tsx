@@ -49,8 +49,7 @@ const AdminLogin: React.FC = () => {
                 }
             })
             .catch(err => {
-                alert(err.response.data.error);
-                toast.error('Login Failed!', {
+                toast.error(err.response.data.error, {
                     style: {
                         borderRadius: '10px',
                         background: '#333',
@@ -65,7 +64,7 @@ const AdminLogin: React.FC = () => {
         <>
             {loading && <Spinner />}
             <div className="main-body">
-                <section className="min-h-screen">
+                <section>
                     <Toaster
                         position="bottom-right"
                         reverseOrder={false}
@@ -80,7 +79,10 @@ const AdminLogin: React.FC = () => {
                                 />
                             </div>
                             <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                                <h2>Admin Login</h2>
+                                <div className='flex justify-between'>
+                                    <h2>Admin Login</h2>
+                                    <button className='btn btn-primary' onClick={() => navigate("/")}>Back</button>
+                                </div>
                                 <form className='pt-4' onSubmit={handleSubmit}>
                                     {/* Email input */}
                                     <div className="form-outline mb-4">

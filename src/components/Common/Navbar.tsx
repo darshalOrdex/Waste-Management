@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
                     {/* Right elements */}
                     <div className="ms-auto me-2 me-md-5">
                         { localStorage.getItem("authtoken") && 
-                            <div className="dropdown">
+                            <div className="dropdown btn-group dropstart">
                                 <a className="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {user}
                                 </a>

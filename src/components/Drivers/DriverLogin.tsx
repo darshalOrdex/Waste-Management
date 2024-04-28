@@ -66,7 +66,10 @@ const DriverLogin: React.FC = () => {
                         />
                     </div>
                     <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                        <h2>Driver Login</h2>
+                        <div className='flex justify-between'>
+                            <h2>Driver Login</h2>
+                            <button className='btn btn-primary' onClick={() => navigate("/")}>Back</button>
+                        </div>
                         <form className='pt-4' onSubmit={handleSubmit}>
                             {/* Email input */}
                             <div className="form-outline mb-4">

@@ -2,10 +2,13 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import image from "../../assets/images/garbage-truck-waste.png"
 import { UserDetails } from '../../interfaces/UserDetails'
-import axios from 'axios'
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
+import Spinner from '../Common/Spinner';
 
 const UserSignup: React.FC = () => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [credentials, setCredentials] = useState<UserDetails>({
         name: "",
         email: "",
@@ -19,11 +22,10 @@ const UserSignup: React.FC = () => {
     }
     const handleSubmit = async(e : FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setLoading(true);
         await axios.post("http://localhost:5000/users/signup",credentials)
         .then(response => {
             if(response.data.success) {
-                alert('Account created successfully! Please log in to continue');
-                navigate('/login')
                 setCredentials({
                     name: "",
                     email: "",
@@ -31,12 +33,41 @@ const UserSignup: React.FC = () => {
                     phonenumber: "",
                     city: "",
                 });
+                setLoading(false);
+                toast.success('Login Success!', {
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                        height: '100px',
+                        padding: '0px 20px',
+                    },
+                })
+                setLoading(false);
+                setTimeout(() => {
+                    navigate('/login')
+                }, 1000);
             }
         })
-        .catch(err => alert(err.response.data.errors[0].msg))
+        .catch(err =>
+            toast.error(err.response.data.errors[0].msg, {
+                style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                    height: '100px',
+                    padding: '0px 20px',
+                },
+            })
+        )
     }
     return (
-        <section className="min-h-screen">
+        <section>
+            {loading && <Spinner />}
+            <Toaster
+                position="bottom-right"
+                reverseOrder={false}
+            />
             <div className="container py-5 h-100">
                 <div className="row d-flex align-items-center justify-content-center h-100">
                     <div className="col-md-8 col-lg-7 col-xl-6">
@@ -47,7 +78,10 @@ const UserSignup: React.FC = () => {
                         />
                     </div>
                     <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                        <h2>User Sign Up</h2>
+                    <div className='flex justify-between'>
+                            <h2>User Sign Up</h2>
+                            <button className='btn btn-primary' onClick={() => navigate("/")}>Back</button>
+                        </div>
                         <form className='pt-4' onSubmit={handleSubmit}>
                             {/* Email input */}
                             <div className="form-outline mb-4">
