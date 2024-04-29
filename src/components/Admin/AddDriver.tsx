@@ -62,7 +62,7 @@ const AddDriver: React.FC = () => {
     return (
         <>
             {loading && <Spinner />}
-            <div className='main-body pt-10'>
+            <div className='pt-10'>
                 <Toaster
                     position="bottom-right"
                     reverseOrder={false}

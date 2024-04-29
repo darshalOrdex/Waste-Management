@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Complaint = require("../models/ComplaintModel");
 const fetchuser = require("../middleware/fetchuser");
+const nodemailer = require('nodemailer');
+const User = require("../models/UserModel");
 
 router.post("/generatecomplaint", fetchuser ,async(req,res) => {
     try {
@@ -63,6 +65,22 @@ router.put("/updatecomplaint/:id", async (req, res)=>{
         }
         const { status } = req.body;
         const newComplaint = await Complaint.findByIdAndUpdate(id, {status : status}, {new: true});
+        const user = await User.findById(newComplaint.userId);
+        var transport = nodemailer.createTransport({
+            host: "sandbox.smtp.mailtrap.io",
+            port: 2525,
+            auth: {
+              user: "2e2eeda2be6ff7",
+              pass: "330c89e4c08865"
+            }
+        });
+        const mailOptions = {
+            from:'wastemanagement@gamil.com',
+            to: user.email,
+            subject: "Complaint Successfully Completed",
+            html: `<h2>Your Complaint with message ${newComplaint.complaint} with id ${newComplaint._id} has been Completed successfully</h2>`
+        }
+        const mailResponse = await transport.sendMail(mailOptions);
         res.json(newComplaint);
     } catch (error) {
         console.error(error.message);
@@ -77,6 +95,21 @@ router.post("/userimagecomplaint",fetchuser,async (req, res)=>{
             userId : req.user.id, locality, city, latitude, longitude, complaint, complaintImage 
         })
         const savedComplaint = await userComplaint.save()
+        var transport = nodemailer.createTransport({
+            host: "sandbox.smtp.mailtrap.io",
+            port: 2525,
+            auth: {
+              user: "2e2eeda2be6ff7",
+              pass: "330c89e4c08865"
+            }
+        });
+        const mailOptions = {
+            from:'wastemanagement@gamil.com',
+            to: req.user.email,
+            subject: "Complaint Successfully Registered",
+            html: `<table border="1"><tr><th>Complaint</th><th>Status</th></tr><tr><td>${complaint}</td><td>Pending</td></tr></table>`
+        }
+        const mailResponse = await transport.sendMail(mailOptions);
         res.json(savedComplaint);
     } catch (error) {
         console.error(error.message);

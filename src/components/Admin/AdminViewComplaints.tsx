@@ -30,13 +30,14 @@ const AdminViewComplaints : React.FC = () => {
                                     <div>Status :- {item.status}</div>
                                 </div>
                                 <div>
-                                    {   item.status === "Pending" &&
+                                    {   item.status === "Pending" && item.driveremail &&
                                         <Link to={`/admin_bin_status/${item._id}`} className='btn btn-primary'>
                                         Update Status
                                         </Link>
+                                        
                                     }
                                     {   !item.driveremail &&
-                                        <Link to={`/assign_driver/${item._id}`} className='btn btn-primary ms-2'>
+                                        <Link to={`/assign_driver/${item._id}`} className={`btn btn-primary`}>
                                             Assign Driver
                                         </Link>
                                     }

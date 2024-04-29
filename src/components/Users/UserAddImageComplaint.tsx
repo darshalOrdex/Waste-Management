@@ -3,6 +3,8 @@ import { storage } from "../../firebase/firebase"
 import { Link } from 'react-router-dom';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
+import Spinner from '../Common/Spinner';
 
 const UserAddImageComplaint: React.FC = () => {
     const [complaint, setComplaint] = useState<string>("");
@@ -11,6 +13,7 @@ const UserAddImageComplaint: React.FC = () => {
     const [locality, setLocality] = useState<string>("");
     const [city, setCity] = useState<string>("");
     const [imageUpload, setImageUpload] = useState<File | undefined>();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -25,6 +28,7 @@ const UserAddImageComplaint: React.FC = () => {
     }, [latitude, longitude])
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setLoading(true);
         if (imageUpload) {
             const imageRef = ref(storage, `${Date.now}`)
             uploadBytes(imageRef, imageUpload).then((snapshot) => {
@@ -44,8 +48,16 @@ const UserAddImageComplaint: React.FC = () => {
                         complaintImage: url
                     }
                     await axios.post("http://localhost:5000/complaint/userimagecomplaint", data, axiosConfig).then((response) => {
-                        console.log(response.data)
-                        alert("Complaint Added Successfully");
+                        setLoading(false);
+                        toast.success('Complaint Added Successfully!', {
+                            style: {
+                                borderRadius: '10px',
+                                background: '#333',
+                                color: '#fff',
+                                height: '100px',
+                                padding: '0px 20px',
+                            },
+                        })
                         setComplaint("");
                         setLatitude(0);
                         setLongitude(0);
@@ -53,14 +65,27 @@ const UserAddImageComplaint: React.FC = () => {
                         setCity("");
                         setImageUpload(undefined);
                     }).catch((error) => {
-                        console.log(error)
+                        toast.error(error, {
+                            style: {
+                                borderRadius: '10px',
+                                background: '#333',
+                                color: '#fff',
+                                height: '100px',
+                                padding: '0px 20px',
+                            },
+                        })
                     })
                 })
             })
         }
     }
     return (
-        <div className='main-body pt-10 min-h-screen'>
+        <div className='pt-10'>
+            {loading && <Spinner />}
+            <Toaster
+                position="bottom-right"
+                reverseOrder={false}
+            />
             <div className='container flex justify-between'>
                 <h2 className='mb-4'>Add Custom Complaint</h2>
                 <Link to={"/user_home"} className='mb-4 btn btn-primary text-2xl'>Back</Link>
